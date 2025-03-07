@@ -3,8 +3,8 @@
 An interactive recipe application built with **React.js (Frontend)** and **Node.js (Express.js, MongoDB) Backend**. It integrates with the **Spoonacular API** to fetch recipes and allows users to save favorites.
 
 ## Deployed links-
- Backend- https://recipe-backend-fy1o.onrender.com
- Frontend- 
+ Backend- https://recipe-backend-fy1o.onrender.com <br/>
+ Frontend- https://rainbow-platypus-17e206.netlify.app
 
 ## 🚀 Features
 - **Search Recipes**: Search for recipes using keywords.

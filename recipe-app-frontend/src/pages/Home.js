@@ -6,8 +6,10 @@ import "./Home.css";
 function Home() {
   const [query, setQuery] = useState("");
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const searchRecipes = async () => {
+    setLoading(true);
     try {
       console.log("Fetching data from:", `https://recipe-backend-fy1o.onrender.com/api/recipes/search?query=${query}`);
   
@@ -20,6 +22,8 @@ function Home() {
       setRecipes(response.data);
     } catch (error) {
       console.error("Error fetching recipes:", error.response ? error.response.data : error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,18 +55,24 @@ function Home() {
           ))}
         </select>
 
-        <button onClick={searchRecipes}>Search</button>
+        <button onClick={searchRecipes} disabled={loading}>
+          {loading ? "Searching..." : "Search"}
+        </button>
       </div>
 
-      <div className="recipes-grid">
-        {recipes.map((recipe) => (
-          <div key={recipe.id} className="recipe-card">
-            <h3>{recipe.title}</h3>
-            <img src={recipe.image} alt={recipe.title} />
-            <Link to={`/recipe/${recipe.id}`}>View Details</Link>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <div className="loader">Loading recipes...</div>
+      ) : (
+        <div className="recipes-grid">
+          {recipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
+              <h3>{recipe.title}</h3>
+              <img src={recipe.image} alt={recipe.title} />
+              <Link to={`/recipe/${recipe.id}`}>View Details</Link>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
